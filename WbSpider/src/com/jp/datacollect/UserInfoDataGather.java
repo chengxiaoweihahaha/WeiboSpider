@@ -2,16 +2,16 @@ package com.jp.datacollect;
 /* 作者：jiaopan
  * 时间：2016.5
  * */
+import com.jp.DbUtil.DbUtil;
+import com.jp.model.User;
+import com.jp.model.UserInfo;
+import com.jp.sipder.GetUserInfo;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.jp.DbUtil.DbUtil;
-import com.jp.model.User;
-import com.jp.model.UserInfo;
-import com.jp.sipder.GetUserInfo;
 
 public class UserInfoDataGather {
 	public static void main(String[] args) throws Exception{
@@ -88,8 +88,7 @@ public class UserInfoDataGather {
 					stored=selectUserID(conn, sqluserinfostored+"'"+user.getUserid()+"'").size();
 					if(stored!=0||userInfo.getUsername()==null){
 						continue;
-					}
-					else {
+					} else {
 						psmt.executeUpdate();
 						psmt.close();
 					}

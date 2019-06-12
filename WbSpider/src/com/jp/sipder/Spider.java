@@ -3,17 +3,16 @@ package com.jp.sipder;
 /* 作者：jiaopan
  * 时间：2016.5
  * */
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Spider {
 	//http://weibo.com/p/1005053472041784  访问个人主页
@@ -25,7 +24,7 @@ public class Spider {
 	
 	//you must modify the the value of cookies base on your own Weibo account
 	//你必须根据你自己的微博账号更改这个cookies的值 【利用浏览器的抓包工具】
-	private static String cookies="cookies";
+	private static String cookies="f307b93959f45c1c0f0ff1ca6bca5b9a";
 	private static String userAgent="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36";
 	//获取关注列表的方法
 	public static String getHtml(String url) throws Exception{

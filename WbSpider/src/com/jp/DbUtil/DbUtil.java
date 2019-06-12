@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class DbUtil {
 	public static Connection getConn() throws Exception{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_wbspider","root","");
+		Connection conn=DriverManager.getConnection("jdbc:mysql://ci2:3306/test","miaobt","218allegro");
 		return conn;
 	}
 
