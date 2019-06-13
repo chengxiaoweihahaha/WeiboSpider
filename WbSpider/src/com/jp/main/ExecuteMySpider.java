@@ -200,7 +200,7 @@ public class ExecuteMySpider {
 				posName=posName.replaceAll("/","-");
 				posName=posName.replaceAll("\\\\","");
 				String fileName=num+"-"+posName+".txt";
-				FileTool.saveToLocal(fileName,posJson.toJSONString());
+				MySpiderTool.saveToLocal(fileName,posJson.toJSONString());
 			}
 		} else {
 			System.out.println("Network is error : "+url);
