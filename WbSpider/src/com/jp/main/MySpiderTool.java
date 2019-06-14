@@ -2,6 +2,9 @@ package com.jp.main;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -14,7 +17,10 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /*  本类主要是 下载那些已经访问过的文件*/
 public class MySpiderTool {
@@ -57,7 +63,7 @@ public class MySpiderTool {
 
 
     /**
-     * 保存网页字节数组到本地文件，filePath 为要保存的文件的相对地址
+     * OkHttpClient获取Document
      */
     public static Document getDocument(String url) {
         String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36";
@@ -74,6 +80,30 @@ public class MySpiderTool {
                 doc = Jsoup.parse(html);
             }
         } catch (IOException e) {
+            System.out.println("OkHttpClient获取Document出错============"+e);
+            e.printStackTrace();
+        }
+        return doc;
+    }
+
+    /**
+     * WebClient获取Document
+     */
+    public static Document getDocumentByWebClient(String url) {
+        WebClient webClient = new WebClient();
+        //设置webClient的相关参数
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.getOptions().setCssEnabled(false);
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+        //模拟浏览器打开一个目标网址
+        Document doc=null;
+        try {
+            HtmlPage rootPage = webClient.getPage(url);
+            String html = rootPage.asText();
+            doc = Jsoup.parse(html);
+        } catch (IOException e) {
+            System.out.println("WebClient获取Document出错============"+e);
             e.printStackTrace();
         }
         return doc;
@@ -186,6 +216,13 @@ public class MySpiderTool {
             e.printStackTrace();
         }
         return posJson;
+    }
+
+
+    //TODO 自测main方法
+    public static void main(String[] args) throws Exception {
+        String url="";
+        Document document=getDocumentByWebClient(url);
     }
 
 }

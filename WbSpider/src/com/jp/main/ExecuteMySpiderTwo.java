@@ -74,26 +74,28 @@ public class ExecuteMySpiderTwo {
 
 											//TODO 进入公司介绍主页，获取公司联系方式
 											String compLinkHref = link.attr("href");
-											Thread.sleep(3000);
-											Document compLinkDoc=MySpiderTool.getDocument(compLinkHref);
-											if (null!=compLinkDoc) {
-												Element contactDivElement=compLinkDoc.select(".contact").first();
-												if(null!=contactDivElement){
-													Elements contactDivs=contactDivElement.select(".c_detail_item");
-													for (Element contactDiv : contactDivs) {
-														String compContact=contactDiv.text();
-														if(compContact.contains("联系人")){
-															compContact=compContact.replace("联系人","");
-															posJson.put("联系人",compContact);
-														}else if(compContact.contains("招聘邮箱")){
-															compContact=compContact.replace("招聘邮箱","");
-															posJson.put("招聘邮箱",compContact);
-														}else if(compContact.contains("联系电话")){
-															compContact=compContact.replace("联系电话","");
-															posJson.put("联系电话",compContact);
-														}else if(compContact.contains("公司官网")){
-															compContact=compContact.replace("公司官网","");
-															posJson.put("公司官网",compContact);
+											if(!"javascript:;".equals(compLinkHref)){
+												Thread.sleep(3000);
+												Document compLinkDoc=MySpiderTool.getDocument(compLinkHref);
+												if (null!=compLinkDoc) {
+													Element contactDivElement=compLinkDoc.select(".contact").first();
+													if(null!=contactDivElement){
+														Elements contactDivs=contactDivElement.select(".c_detail_item");
+														for (Element contactDiv : contactDivs) {
+															String compContact=contactDiv.text();
+															if(compContact.contains("联系人")){
+																compContact=compContact.replace("联系人","");
+																posJson.put("联系人",compContact);
+															}else if(compContact.contains("招聘邮箱")){
+																compContact=compContact.replace("招聘邮箱","");
+																posJson.put("招聘邮箱",compContact);
+															}else if(compContact.contains("联系电话")){
+																compContact=compContact.replace("联系电话","");
+																posJson.put("联系电话",compContact);
+															}else if(compContact.contains("公司官网")){
+																compContact=compContact.replace("公司官网","");
+																posJson.put("公司官网",compContact);
+															}
 														}
 													}
 												}
