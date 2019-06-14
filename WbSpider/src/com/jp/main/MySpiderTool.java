@@ -113,9 +113,9 @@ public class MySpiderTool {
      * 获取58网站所有城市
      */
     public static Map<String,String> getCityMap(Document changeCityDoc) {
+        //TODO 存放最终城市的map
         Map<String,String> endCityMap=new TreeMap<>();
         try {
-            //TODO 存放最终城市的map
             //取scrip里面的所有城市+代号
             Elements elements = changeCityDoc.getElementsByTag("script").eq(2);
 		    /*循环遍历script下面的JS变量*/
@@ -216,6 +216,31 @@ public class MySpiderTool {
             e.printStackTrace();
         }
         return posJson;
+    }
+
+
+
+    /**
+     * 获取斗米网站所有城市
+     */
+    public static Map<String,String> getDoumiCityMap(Document changeCityDoc) {
+        //TODO 存放最终城市的map
+        Map<String,String> endCityMap=new TreeMap<>();
+        try {
+            Element allCityDiv = changeCityDoc.select(".all-city").first();
+
+            Elements allCityLink = allCityDiv.select("a");
+            for (Element element : allCityLink) {
+                String cityName=element.text();
+                String cityHref = element.attr("href");
+                endCityMap.put(cityName+"-全职",cityHref+"w2/");
+                endCityMap.put(cityName+"-兼职",cityHref+"w1/");
+            }
+        } catch (Exception e) {
+            System.out.println("获取斗米网站所有城市出错============"+e);
+            e.printStackTrace();
+        }
+        return endCityMap;
     }
 
 

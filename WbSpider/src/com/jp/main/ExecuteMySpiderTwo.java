@@ -15,7 +15,6 @@ public class ExecuteMySpiderTwo {
 
 	//TODO 这是58网站500条记录的爬取
 	public static void main(String[] args) throws Exception {
-
 		//TODO 所有城市
 		int w = 0;
 		//获取城市列表的url
